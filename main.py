@@ -1,9 +1,11 @@
+#Importing the requried libraries
 import os
 
 import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
 
+#importing the functions from Geminiutil.py
 from Geminiutil import load_gemini_ai_model
 
 from Geminiutil import gemini_ai_vision
@@ -14,12 +16,14 @@ from Geminiutil import gemini_user_response
 
 working_directory=os.path.dirname(os.path.abspath(__file__))
 
+#createing an streamlit app
 st.set_page_config(
     page_title="Gemini AI",
     page_icon="🧠",
     layout="centered",
 )
 
+#create an option_menu
 with st.sidebar:
 
     selected=option_menu("Gemini AI",
@@ -35,13 +39,15 @@ with st.sidebar:
                                 'patch-question-fill'],
                          default_index=0
                          )
+
+
 def translate_role_for_streamlite(user_role):
     if user_role=='model':
         return 'assistant'
     else:
         return user_role
 
-
+#creating a chatbot 
 if selected=='Chatbot':
     model=load_gemini_ai_model()
 
@@ -65,7 +71,7 @@ if selected=='Chatbot':
         with st.chat_message('assistant'):
             st.markdown(gemini_response.text)
 
-
+#creating an image captioning
 
 if selected=='Image Captioning':
 
@@ -90,7 +96,7 @@ if selected=='Image Captioning':
 
         with col2:
             st.info(caption)
-
+#creating an embeddings
 
 if selected=='Embeddings':
     st.title('🗟 Text Embeddings')
@@ -102,7 +108,7 @@ if selected=='Embeddings':
 
         st.markdown(respone)
 
-
+#creating Question and Answer with AI
 if selected=="Ask me Anything":
     st.title('❓ Ask me a Question')
 
