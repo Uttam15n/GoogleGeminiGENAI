@@ -1,4 +1,9 @@
-google-generativeai==0.4.0
-pillow==10.2.0
-streamlit==1.31.1
-streamlit-option-menu==0.3.12
+**These are the requried library for our Gemini AI APP
+#IN Terminal just write pip install -r filename
+
+google-generativeai==0.8.3 #update the version
+pillow==10.2.0 #needed for image Access
+streamlit==1.31.1 #To bulit an AI APP
+streamlit-option-menu==0.3.12 #TO create Option-menu
+
+#whlie writing the file don't write the commands after the # and **
