@@ -45,3 +45,14 @@ def gemini_user_response(user_prompt):
     result = response1.text
 
     return result
+
+
+#function to document summarisation
+def document_summary(text):
+    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+
+    prompt = "Summarise the document"
+
+    response = model.generate_content([prompt, text])
+
+    return response.text
