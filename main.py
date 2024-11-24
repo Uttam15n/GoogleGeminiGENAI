@@ -4,6 +4,7 @@ import os
 import streamlit as st
 from streamlit_option_menu import option_menu
 from PIL import Image
+from PyPDF2 import PdfReader
 
 #importing the functions from Geminiutil.py
 from Geminiutil import load_gemini_ai_model
@@ -14,6 +15,7 @@ from Geminiutil import Emebbed_Text_Generation
 
 from Geminiutil import gemini_user_response
 
+from Geminiutil import document_summary
 working_directory=os.path.dirname(os.path.abspath(__file__))
 
 #createing an streamlit app
@@ -30,13 +32,14 @@ with st.sidebar:
                          ['Chatbot',
                           'Image Captioning',
                           'Embeddings',
-                          'Ask me Anything'
-                          ],
+                          'Ask me Anything',
+                          'Document Summary'],
                          menu_icon="robot",
                          icons=['chat-dots-fill',
                                 'image-fill',
                                 'textarea-t',
-                                'patch-question-fill'],
+                                'patch-question-fill',
+                                'file-earmark-text-fill'],
                          default_index=0
                          )
 
@@ -118,4 +121,23 @@ if selected=="Ask me Anything":
         respone=gemini_user_response(user_input)
 
         st.markdown(respone)
+
+#creating a summary of the pdf document.
+if selected=="Document Summary":
+    st.title('🗎 PDF Summariser')
+
+    pdf_file=st.file_uploader("Upload a PDF File",type=['pdf'])
+    if pdf_file is not None:
+        if st.button('Summarise'):
+            if pdf_file.name.endswith(".pdf"):
+                pdf_reader = PdfReader(pdf_file)
+                text = ""
+                for page in pdf_reader.pages:
+                    text += page.extract_text()
+
+                document_response=document_summary(text)
+                st.write("Summarised content:")
+                st.write(document_response)
+            else:
+                st.write("Upload a Pdf document")
 
